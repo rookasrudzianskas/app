@@ -1,0 +1,3 @@
+schema @sdl(files: ["GoogleBooks/index.graphql", "OpenLibrary/index.graphql"]) {
+  query: Query
+}

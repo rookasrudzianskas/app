@@ -1,0 +1,96 @@
+"""
+Some fields ["id_bibliothèque_nationale_de_france_bnf", "id_depósito_legal"] are not valid graphql identifiers and were omitted
+"""
+type OLDocsEntry {
+  _version_: ID
+  author_alternative_name: [String]
+  author_facet: [String]
+  author_key: [String]
+  author_name: [String]
+  contributor: [String]
+  cover_edition_key: String
+  cover_i: Int
+  ddc: [String]
+  ddc_sort: String
+  ebook_access: String
+  ebook_count_i: Int
+  edition_count: Int
+  edition_key: [String]
+  first_publish_year: Int
+  first_sentence: [String]
+  has_fulltext: Boolean
+  ia: [String]
+  ia_box_id: [String]
+  ia_collection: [String]
+  ia_collection_s: String
+  ia_loaded_id: [String]
+  id_alibris_id: [Float]
+  id_amazon: [String]
+  id_amazon_ca_asin: [String]
+  id_amazon_co_uk_asin: [String]
+  id_amazon_de_asin: [String]
+  id_amazon_it_asin: [String]
+  id_bcid: [Date]
+  id_better_world_books: [String]
+  id_british_library: [Int]
+  id_british_national_bibliography: [String]
+  id_canadian_national_library_archive: [Date]
+  id_goodreads: [String]
+  id_google: [String]
+  id_hathi_trust: [Int]
+  id_librarything: [Int]
+  id_nla: [Int]
+  id_overdrive: [String]
+  id_paperback_swap: [String]
+  id_scribd: [Int]
+  id_wikidata: [String]
+  isbn: [String]
+  key: String
+  language: [String]
+  last_modified_i: Int
+  lcc: [String]
+  lcc_sort: String
+  lccn: [String]
+  lending_edition_s: String
+  lending_identifier_s: String
+  number_of_pages_median: Int
+  oclc: [Int]
+  person: [String]
+  person_facet: [String]
+  person_key: [String]
+  place: [String]
+  place_facet: [String]
+  place_key: [String]
+  printdisabled_s: String
+  public_scan_b: Boolean
+  publish_date: [String]
+  publish_place: [String]
+  publish_year: [Int]
+  publisher: [String]
+  publisher_facet: [String]
+  seed: [String]
+  subject: [String]
+  subject_facet: [String]
+  subject_key: [String]
+  subtitle: String
+  time: [String]
+  time_facet: [String]
+  time_key: [String]
+  title: String
+  title_suggest: String
+  type: String
+}
+type OpenLibraryRoot {
+  docs: [OLDocsEntry]
+  numFound: Int
+  numFoundExact: Boolean
+  num_found: Int
+  offset: JSON
+  q: String
+  start: Int
+}
+
+type Query {
+  openLibrarySearch(q: String): OpenLibraryRoot
+    @rest(endpoint: "http://openlibrary.org/search.json")
+}

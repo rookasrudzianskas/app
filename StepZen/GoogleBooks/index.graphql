@@ -1,0 +1,88 @@
+type GoogleAccessInfo {
+  accessViewStatus: String
+  country: String
+  embeddable: Boolean
+  epub: GoogleEpub
+  pdf: GooglePdf
+  publicDomain: Boolean
+  quoteSharingAllowed: Boolean
+  textToSpeechPermission: String
+  viewability: String
+  webReaderLink: String
+}
+type GoogleEpub {
+  acsTokenLink: String
+  isAvailable: Boolean
+}
+type GoogleImageLinks {
+  smallThumbnail: String
+  thumbnail: String
+}
+type GoogleIndustryIdentifiersEntry {
+  identifier: String
+  type: String
+}
+type GoogleItemsEntry {
+  accessInfo: GoogleAccessInfo
+  etag: String
+  id: String
+  kind: String
+  saleInfo: GoogleSaleInfo
+  searchInfo: GoogleSearchInfo
+  selfLink: String
+  volumeInfo: GoogleVolumeInfo
+}
+type GooglePanelizationSummary {
+  containsEpubBubbles: Boolean
+  containsImageBubbles: Boolean
+}
+type GooglePdf {
+  acsTokenLink: String
+  isAvailable: Boolean
+}
+type GoogleReadingModes {
+  image: Boolean
+  text: Boolean
+}
+type GoogleRoot {
+  items: [GoogleItemsEntry]
+  kind: String
+  totalItems: Int
+}
+type GoogleSaleInfo {
+  country: String
+  isEbook: Boolean
+  saleability: String
+}
+type GoogleSearchInfo {
+  textSnippet: String
+}
+type GoogleVolumeInfo {
+  allowAnonLogging: Boolean
+  authors: [String]
+  averageRating: Int
+  canonicalVolumeLink: String
+  categories: [String]
+  contentVersion: String
+  description: String
+  imageLinks: GoogleImageLinks
+  industryIdentifiers: [GoogleIndustryIdentifiersEntry]
+  infoLink: String
+  language: String
+  maturityRating: String
+  pageCount: Int
+  panelizationSummary: GooglePanelizationSummary
+  previewLink: String
+  printType: String
+  publishedDate: String
+  publisher: String
+  ratingsCount: Int
+  readingModes: GoogleReadingModes
+  subtitle: String
+  title: String
+}
+
+type Query {
+  googleBooksSearch(country: String, q: String): GoogleRoot
+    @rest(endpoint: "https://www.googleapis.com/books/v1/volumes")
+}
