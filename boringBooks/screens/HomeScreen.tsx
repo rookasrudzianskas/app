@@ -71,10 +71,10 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
           <View
               className="bg-gray-100"
               style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              height: 50
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  height: 50
           }}>
               <TouchableOpacity activeOpacity={0.7}
                   onPress={() => setProvider("googleBooksSearch")}
@@ -107,10 +107,10 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
                 </View>
           ) : (
               <FlatList
-                  data={data?.googleBooksSearch?.items || []}
-                  keyExtractor={(item) => item.id}
+                  data={(provider === 'googleBooksSearch' ? data?.googleBooksSearch?.items : data?.openLibrarySearch?.docs) || []}
+                  keyExtractor={(item, index) => `${index}-${item.id}`}
                   showsVerticalScrollIndicator={false}
-                  renderItem={({ item }) => (
+                  renderItem={({ item, index }) => (
                       <BookItem book={{
                           title: item?.volumeInfo?.title,
                           image: item?.volumeInfo?.imageLinks?.thumbnail,
