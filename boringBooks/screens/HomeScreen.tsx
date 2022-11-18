@@ -40,28 +40,13 @@ const query = gql`
 `;
 
 const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
-    const [search, setSearch] = useState('');
-    const [runQuery, { data: dataFromText, loading: dataLoading, error: dataError }] = useLazyQuery(query);
-
-    const { data, loading, error } = useQuery(query, {
-        variables: {
-            q: "React Native",
-        }
-    });
-
-
-
+    const [search, setSearch] = useState('React Native');
+    const [runQuery, { data, loading, error }] = useLazyQuery(query);
 
     if(loading) {
         return (
             <View className="h-screen items-center justify-center">
                 <ActivityIndicator />
-            </View>
-        )
-    } else if(error) {
-        return (
-            <View className="h-screen items-center justify-center">
-                <Text className="text-xl font-semibold text-red-500">{error.message}</Text>
             </View>
         )
     }
@@ -80,18 +65,24 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
                   onPress={() => runQuery({ variables: { q: search } })}
               />
           </View>
-        <FlatList
-            data={data?.googleBooksSearch?.items || []}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-                <BookItem book={{
-                    title: item?.volumeInfo?.title,
-                    image: item?.volumeInfo?.imageLinks?.thumbnail,
-                    authors: item?.volumeInfo?.authors,
-                }} />
-            )}
-        />
+          {error ? (
+                <View className="flex-1 items-center justify-center">
+                    <Text className="text-red-500 text-xl">No Data Entered</Text>
+                </View>
+          ) : (
+              <FlatList
+                  data={data?.googleBooksSearch?.items || []}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                      <BookItem book={{
+                          title: item?.volumeInfo?.title,
+                          image: item?.volumeInfo?.imageLinks?.thumbnail,
+                          authors: item?.volumeInfo?.authors,
+                      }} />
+                  )}
+              />
+          )}
         <StatusBar style="auto" />
       </View>
   );
