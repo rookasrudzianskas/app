@@ -15,6 +15,7 @@ const App = () => {
   const API_KEY = "saltillo::stepzen.net+1000::c5e3ef401778df7e594c5ffa46283fea6ed840d5a4b5f489e81d8ced13cbe9bf";
 
   const client = new ApolloClient({
+    // This is globally available in the browser
     uri: "https://saltillo.stepzen.net/api/left-llama/__graphql",
     headers: {
       Authorization: `Apikey ${API_KEY}`,
