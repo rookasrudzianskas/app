@@ -2,22 +2,29 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Entypo} from "@expo/vector-icons";
+import {useMyBooks} from "../context/MyBooksProvider";
 
 type BookItemProps = {
     book: Book;
 };
 
 const BookItem = ({ book }: BookItemProps) => {
+    const { onToggleSaved, isBookSaved } = useMyBooks();
+    const saved = isBookSaved(book);
+
     return (
-        <TouchableOpacity activeOpacity={0.7} className="mx-3" style={styles.container}>
+        <TouchableOpacity
+            activeOpacity={0.7} className="mx-3" style={styles.container}>
             <Image source={{ uri: (book.image ? book.image : 'https://cdn.dribbble.com/users/4179244/screenshots/7430038/media/34d6717bbdde1e753889d3625fb16e29.gif') }} style={styles.image} />
             <View style={styles.contentContainer}>
                 <View>
                     <Text className="text-xl" style={styles.title}>{book.title}</Text>
                     <Text className="italic font-extralight">by {book.authors?.join(", ")}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} className="bg-green-600/80 mt-4 max-w-[140px] py-2 px-3 rounded flex-row justify-between items-center">
-                    <Text className="text-white font-semibold border-l">Down to Read</Text>
+                <TouchableOpacity
+                    onPress={() => onToggleSaved(book)}
+                    activeOpacity={0.7} className={`${saved ? "bg-red-600/80" : "bg-green-600/80"} mt-4 max-w-[140px] py-2 px-3 rounded flex-row justify-between items-center`}>
+                    <Text className="text-white font-semibold border-l">{saved ? "Remove" : "Down to Read"}</Text>
                     <Entypo name="chevron-down" size={18} color="white" />
                 </TouchableOpacity>
                 <View className="flex-row items-center mt-4 mb-3">
