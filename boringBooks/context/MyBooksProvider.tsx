@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyBooksContextType = {
     isBookSaved: (book: Book) => boolean;
@@ -37,6 +38,19 @@ const MyBooksProvider = ({ children }: Props) => {
         } else {
             setSavedBooks((books) => [book, ...books]);
         }
+    }
+
+    const persistData = async () => {
+        await AsyncStorage.setItem("booksData", JSON.stringify(savedBooks));
+    }
+
+    const loadData = async () => {
+        const dataString = await AsyncStorage.getItem("booksData");
+        if(dataString) {
+            const items = JSON.parse(dataString);
+            setSavedBooks(items);
+        }
+
     }
 
     return (
