@@ -10,7 +10,7 @@ type BookItemProps = {
 const BookItem = ({ book }: BookItemProps) => {
     return (
         <TouchableOpacity activeOpacity={0.7} className="mx-3" style={styles.container}>
-            <Image source={{ uri: (book.image || 'https://cdn.dribbble.com/users/4179244/screenshots/7430038/media/34d6717bbdde1e753889d3625fb16e29.gif') }} style={styles.image} />
+            <Image source={{ uri: (book.image ? book.image : 'https://cdn.dribbble.com/users/4179244/screenshots/7430038/media/34d6717bbdde1e753889d3625fb16e29.gif') }} style={styles.image} />
             <View style={styles.contentContainer}>
                 <View>
                     <Text className="text-xl" style={styles.title}>{book.title}</Text>
