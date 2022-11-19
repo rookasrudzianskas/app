@@ -37,4 +37,6 @@ const MyBooksProvider = ({ children }: Props) => {
     )
 }
 
+export const useMyBooks = () => useContext(MyBooksContext);
+
 export default MyBooksProvider;

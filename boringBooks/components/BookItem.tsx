@@ -17,7 +17,7 @@ const BookItem = ({ book }: BookItemProps) => {
                     <Text className="italic font-extralight">by {book.authors?.join(", ")}</Text>
                 </View>
                 <TouchableOpacity activeOpacity={0.7} className="bg-green-600/80 mt-4 max-w-[140px] py-2 px-3 rounded flex-row justify-between items-center">
-                    <Text className="text-white font-semibold border-l">Want to Read</Text>
+                    <Text className="text-white font-semibold border-l">Down to Read</Text>
                     <Entypo name="chevron-down" size={18} color="white" />
                 </TouchableOpacity>
                 <View className="flex-row items-center mt-4 mb-3">
