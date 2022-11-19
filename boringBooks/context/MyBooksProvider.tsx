@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyBooksContextType = {
@@ -20,6 +20,17 @@ const MyBooksContext = createContext<MyBooksContextType>({
 
 const MyBooksProvider = ({ children }: Props) => {
     const [savedBooks, setSavedBooks] = useState<Book[]>([]);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        loadData();
+    }, []); // load the data, then component mounts
+
+    useEffect(() => {
+        if (loaded) {
+            persistData();
+        }
+    }, [savedBooks]);
 
     const areBooksTheSame = (a: Book, b: Book) => {
         return JSON.stringify(a) === JSON.stringify(b);
@@ -50,7 +61,7 @@ const MyBooksProvider = ({ children }: Props) => {
             const items = JSON.parse(dataString);
             setSavedBooks(items);
         }
-
+        setLoaded(true);
     }
 
     return (
