@@ -1,48 +1,17 @@
 // @ts-nocheck
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import { Text, View } from '../../components/Themed';
+import { RootTabScreenProps } from '../../types';
 import {StatusBar} from "expo-status-bar";
 import {gql, useLazyQuery, useQuery} from "@apollo/client";
 import {ActivityIndicator, Button, FlatList, TextInput, TouchableOpacity} from "react-native";
-import BookItem from "../components/BookItem";
+import BookItem from "../../components/BookItem";
 import {useState} from "react";
-
-const query = gql`
-    query SearchBooks($q: String) {
-        googleBooksSearch(q: $q, country: "US") {
-            items {
-                id
-                volumeInfo {
-                    authors
-                    averageRating
-                    description
-                    imageLinks {
-                        thumbnail
-                    }
-                    title
-                    subtitle
-                    industryIdentifiers {
-                        identifier
-                        type
-                    }
-                }
-            }
-        }
-        openLibrarySearch(q: $q) {
-            docs {
-                author_name
-                title
-                cover_edition_key
-                isbn
-            }
-        }
-    }
-`;
+import {SEARCH_QUERY} from "./Query";
 
 const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
     const [search, setSearch] = useState('React Native');
     const [provider, setProvider] = useState<"googleBooksSearch" | "openLibrarySearch">('googleBooksSearch');
-    const [runQuery, { data, loading, error }] = useLazyQuery(query);
+    const [runQuery, { data, loading, error }] = useLazyQuery(SEARCH_QUERY);
 
     const parseBook = (item): Book => {
         if (provider === "googleBooksSearch") {
