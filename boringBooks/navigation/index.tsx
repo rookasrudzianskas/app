@@ -66,11 +66,10 @@ function BottomTabNavigator() {
         // @ts-ignore
         name="Search"
         component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        options={{
             headerShown: false,
-          title: 'Boring Books',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bookshelf" size={24} color={color} />
-        })}
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bookshelf" size={24} color={color} />,
+        }}
       />
       <BottomTab.Screen
         name="MyBooks"
