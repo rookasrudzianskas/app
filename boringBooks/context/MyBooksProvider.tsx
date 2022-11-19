@@ -20,15 +20,20 @@ const MyBooksContext = createContext<MyBooksContextType>({
 const MyBooksProvider = ({ children }: Props) => {
     const [savedBooks, setSavedBooks] = useState<Book[]>([]);
 
+    const areBooksTheSame = (a: Book, b: Book) => {
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+
     const isBookSaved = (book: Book) => {
         // Better to implement stringified objects to be sure compared by the value, not the objects reference
-        return savedBooks.some((savedBook) => JSON.stringify(savedBook) === JSON.stringify(book));
+        return savedBooks.some((savedBook) => areBooksTheSame(savedBook, book));
     }
 
     const onToggleSaved = (book: Book) => {
         if (isBookSaved(book)) {
+            // From the books we already have in state, we are going to filter the ones which are not the current book (pressed one);
             // This filters out the book from the savedBooks array
-            setSavedBooks((books) => books.filter((item) => item !== book));
+            setSavedBooks((books) => books.filter((savedBooks) => !areBooksTheSame(savedBooks, book)));
         } else {
             setSavedBooks((books) => [book, ...books]);
         }
