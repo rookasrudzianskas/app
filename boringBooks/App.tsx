@@ -6,6 +6,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import MyBooksProvider from "./context/MyBooksProvider";
 
 const App = () => {
   const isLoadingComplete = useCachedResources();
@@ -27,10 +28,12 @@ const App = () => {
   } else {
     return (
       <SafeAreaProvider>
-        <ApolloProvider client={client} >
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </ApolloProvider>
+          <ApolloProvider client={client} >
+            <MyBooksProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </MyBooksProvider>
+          </ApolloProvider>
       </SafeAreaProvider>
     );
   }

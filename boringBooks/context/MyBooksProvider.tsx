@@ -6,8 +6,35 @@ type MyBooksContextType = {
     savedBooks: Book[];
 };
 
+type Props = {
+    children: React.ReactNode;
+};
+
 const MyBooksContext = createContext<MyBooksContextType>({
     isBookSaved: () => false,
     onToggleSaved: () => {},
     savedBooks: [],
-})
+});
+
+
+const MyBooksProvider = ({ children }: Props) => {
+    const [savedBooks, setSavedBooks] = useState<Book[]>([]);
+
+    const isBookSaved = (book: Book) => {
+
+    }
+
+    const onToggleSaved = (book: Book) => {
+
+    }
+
+
+    return (
+        // @ts-ignore
+        <MyBooksContext.Provider value={{ isBookSaved, onToggleSaved, savedBooks }}>
+            {children}
+        </MyBooksContext.Provider>
+    )
+}
+
+export default MyBooksProvider;
