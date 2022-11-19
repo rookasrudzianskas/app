@@ -21,6 +21,7 @@ const MyBooksProvider = ({ children }: Props) => {
     const [savedBooks, setSavedBooks] = useState<Book[]>([]);
 
     const isBookSaved = (book: Book) => {
+        // Better to implement stringified objects to be sure compared by the value, not the objects reference
         return savedBooks.some((savedBook) => JSON.stringify(savedBook) === JSON.stringify(book));
     }
 
