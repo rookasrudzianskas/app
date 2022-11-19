@@ -1,4 +1,4 @@
-export const PARSE_BOOK = (item: any, provider: string): Book => {
+export const PARSE_BOOK = (item: any, provider: BookProvider): Book => {
     if (provider === "googleBooksSearch") {
         return {
             title: item?.volumeInfo?.title,

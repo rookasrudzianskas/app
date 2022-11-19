@@ -11,7 +11,7 @@ import {PARSE_BOOK} from "../../services/bookService";
 
 const HomeScreen = ({ navigation }: RootTabScreenProps<'TabOne'>) => {
     const [search, setSearch] = useState('React Native');
-    const [provider, setProvider] = useState<"googleBooksSearch" | "openLibrarySearch">('googleBooksSearch');
+    const [provider, setProvider] = useState<BookProvider>('googleBooksSearch');
     const [runQuery, { data, loading, error }] = useLazyQuery(SEARCH_QUERY);
 
     if(loading) {
